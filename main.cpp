@@ -8,6 +8,7 @@ class Location {
     public:
         string name;
         string description;
+        map<string, string> exits; //key: Direction, Value: Room Name
         Location() {}
         Location(string n, string d) {
             name = n;
@@ -17,21 +18,30 @@ class Location {
         void display() {
             cout << "---" << name << " ---" << endl;
             cout << description << endl;
+            cout << "Exits ";
+            for(auto pair : exits){
+                cout << pair.first << "";
+            
+            }
+            cout << endl;
         }
 
 };
 
 int main() {
-    cout << "Welcome to the adventure!" << endl;
+    // The master Map: holds all rooms by name
+    map<string, Location> world;
 
-    Location myRoom("kitchen", "it smells like food");
-    myRoom.display();
+    //Create Rooms
+    world["Start"] = Location("Start Room", "A cold, stone room.");
+    world["Forest"] = Location("Dark forest", "Trees surround you.");
 
-    Location dentistOffice("Office", "Its loud in here");
-    dentistOffice.display();
+    //Link Rooms
+    world["Start"].exits["North"] = "Forest";
+    world["Forest"].exits["South"] = "Start";
 
-    Location livingRoom("Sofa", "Its soft");
-    livingRoom.display();
+    // Test it manually
+    world["Start"].display();
 
     return 0;
 }
