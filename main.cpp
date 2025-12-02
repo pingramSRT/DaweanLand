@@ -35,11 +35,25 @@ int main() {
     //Create Rooms
     world["Start"] = Location("Start Room", "A cold, stone room.");
     world["Forest"] = Location("Dark forest", "Trees surround you.");
+    world["Tower"] = Location("Tall tower", "A dark, stone tower");
+    world["Dungeon"] = Location("Damp dungon", "cold, stone walls surround you");
+    world["Courtyard"] = Location("Courtyard", "A Large Courtyard");
 
     //Link Rooms
     world["Start"].exits["North"] = "Forest";
     world["Forest"].exits["South"] = "Start";
 
+    world["Start"].exits["South"] = "Tower";
+    world["Tower"].exits["North"] = "Start";
+
+    world["Tower"].exits["South"] = "Dungeon";
+    world["Dungeon"].exits["North"] = "Tower";
+
+    world["Dungeon"].exits["East"] = "Courtyard";
+    world["Courtyard"].exits["west"] = "Dungeon";
+    world["Courtyard"].exits[Northwest] = "Tower";
+
+    
     // Test it manually
     world["Start"].display();
 
